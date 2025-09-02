@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Menu, X, User, LogOut } from 'lucide-react';
@@ -32,6 +33,10 @@ const Navigation = React.forwardRef<HTMLElement, NavigationProps>(
     };
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    const handleSignOut = async () => {
+      await signOut({ callbackUrl: '/' });
+    };
 
     return (
       <nav
@@ -79,7 +84,7 @@ const Navigation = React.forwardRef<HTMLElement, NavigationProps>(
                       <span>{user.name}</span>
                     </Button>
                   </Link>
-                  <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                  <Button variant="ghost" size="sm" className="flex items-center space-x-2" onClick={handleSignOut}>
                     <LogOut className="h-4 w-4" />
                     <span>退出</span>
                   </Button>
@@ -149,7 +154,10 @@ const Navigation = React.forwardRef<HTMLElement, NavigationProps>(
                       <User className="h-5 w-5" />
                       <span>{user.name}</span>
                     </Link>
-                    <button className="flex w-full items-center space-x-2 px-3 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600">
+                    <button 
+                      className="flex w-full items-center space-x-2 px-3 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                      onClick={handleSignOut}
+                    >
                       <LogOut className="h-5 w-5" />
                       <span>退出</span>
                     </button>
