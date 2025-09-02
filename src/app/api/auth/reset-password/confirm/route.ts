@@ -16,6 +16,8 @@ const confirmResetPasswordSchema = z.object({
     .regex(REGEX_PATTERNS.PASSWORD_STRONG, '密码需要包含大小写字母和数字'),
 })
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()

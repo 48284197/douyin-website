@@ -4,6 +4,8 @@ import { prisma } from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 // 下载跟踪请求验证模式
 const trackDownloadSchema = z.object({
   platform: z.enum(['windows', 'mac-intel', 'mac-m1']),

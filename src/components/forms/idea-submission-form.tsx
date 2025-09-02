@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,7 +24,9 @@ type FormData = {
 };
 
 export function IdeaSubmissionForm() {
-  const { data: session } = useSession();
+  const sessionResult = useSession();
+  const session = sessionResult?.data;
+  const status = sessionResult?.status || 'loading';
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -39,11 +41,28 @@ export function IdeaSubmissionForm() {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<FormData>({
     defaultValues: {
-      contactEmail: session?.user?.email || '',
+      contactEmail: '',
     },
   });
+
+  // 当 session 加载完成后，设置默认邮箱
+  useEffect(() => {
+    if (session?.user?.email) {
+      setValue('contactEmail', session.user.email);
+    }
+  }, [session, setValue]);
+
+  // 如果正在加载 session，显示加载状态
+  if (status === 'loading') {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <Loading size="md" />
+      </div>
+    );
+  }
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);

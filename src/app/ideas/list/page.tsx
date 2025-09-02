@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
-import { IdeasList } from '@/components/ideas/ideas-list';
+'use client';
 
-export const metadata: Metadata = {
-  title: '想法列表 - 抖音直播互动软件',
-  description: '查看用户提交的创意想法和建议',
-};
+import { Suspense } from 'react';
+import { IdeasList } from '@/components/ideas/ideas-list';
+import { Loading } from '@/components/ui/loading';
+
+export const dynamic = 'force-dynamic';
 
 export default function IdeasListPage() {
   return (
@@ -19,7 +19,13 @@ export default function IdeasListPage() {
           </p>
         </div>
         
-        <IdeasList />
+        <Suspense fallback={
+          <div className="flex justify-center items-center py-8">
+            <Loading size="lg" />
+          </div>
+        }>
+          <IdeasList />
+        </Suspense>
       </div>
     </div>
   );

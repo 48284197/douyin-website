@@ -5,6 +5,8 @@ import { prisma } from '@/lib/db';
 import { ideaSchema, searchIdeasSchema } from '@/lib/validations';
 import { ErrorCode } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
 // POST /api/ideas - 提交新想法
 export async function POST(request: NextRequest) {
   try {

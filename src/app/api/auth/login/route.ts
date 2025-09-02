@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs'
 import { loginSchema } from '@/lib/validations'
 import { getUserByEmail } from '@/lib/db'
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()

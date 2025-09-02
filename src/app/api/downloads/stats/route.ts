@@ -3,6 +3,8 @@ import { prisma } from '@/lib/db';
 // import { getServerSession } from 'next-auth';
 // import { authOptions } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     // 检查用户权限（可选：只允许管理员查看统计）

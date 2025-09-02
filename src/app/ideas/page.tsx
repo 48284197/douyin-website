@@ -1,12 +1,12 @@
-import { Metadata } from 'next';
+'use client';
+
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { IdeaSubmissionForm } from '@/components/forms/idea-submission-form';
 import { Button } from '@/components/ui/button';
+import { Loading } from '@/components/ui/loading';
 
-export const metadata: Metadata = {
-  title: '提交想法 - 抖音直播互动软件',
-  description: '分享您对抖音直播互动软件的创意想法和建议',
-};
+export const dynamic = 'force-dynamic';
 
 export default function IdeasPage() {
   return (
@@ -29,7 +29,13 @@ export default function IdeasPage() {
             </p>
           </div>
           
-          <IdeaSubmissionForm />
+          <Suspense fallback={
+            <div className="flex justify-center items-center py-8">
+              <Loading size="lg" />
+            </div>
+          }>
+            <IdeaSubmissionForm />
+          </Suspense>
         </div>
       </div>
     </div>
