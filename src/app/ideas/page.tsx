@@ -2,11 +2,20 @@
 
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { IdeaSubmissionForm } from '@/components/forms/idea-submission-form';
+import dynamicImport from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { Loading } from '@/components/ui/loading';
 
 export const dynamic = 'force-dynamic';
+
+// 动态导入大型表单组件
+const IdeaSubmissionForm = dynamicImport(
+  () => import('@/components/forms/idea-submission-form').then(mod => ({ default: mod.IdeaSubmissionForm })),
+  {
+    loading: () => <Loading />,
+    ssr: false
+  }
+);
 
 export default function IdeasPage() {
   return (

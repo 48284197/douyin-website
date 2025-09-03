@@ -13,7 +13,18 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert } from '@/components/ui/alert';
 import { Loading } from '@/components/ui/loading';
-import { RichTextEditor, type RichTextEditorRef } from '@/components/ui/rich-text-editor';
+import dynamic from 'next/dynamic';
+
+const RichTextEditor = dynamic(
+  () => import('@/components/ui/rich-text-editor').then(mod => ({ default: mod.RichTextEditor })),
+  { ssr: false }
+);
+
+type RichTextEditorRef = {
+  getContent: () => string;
+  setContent: (content: string) => void;
+  focus: () => void;
+};
 import { TagsInput } from '@/components/ui/tags-input';
 
 type FormData = {
