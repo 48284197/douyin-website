@@ -1,12 +1,14 @@
 "use client"
 
 import {
-  BellIcon,
-  CreditCardIcon,
   LogOutIcon,
+  MonitorIcon,
+  MoonIcon,
   MoreVerticalIcon,
-  UserCircleIcon,
+  SunIcon,
 } from "lucide-react"
+import { useTheme } from "@/components/providers/theme-provider"
+import { signOut } from "next-auth/react"
 
 import {
   Avatar,
@@ -39,6 +41,32 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const { theme, setTheme } = useTheme()
+  
+  const handleLogout = async () => {
+    try {
+      // 调用后端API
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      // 使用NextAuth的signOut函数
+      await signOut({
+        callbackUrl: '/auth/signin',
+        redirect: true
+      })
+    } catch (error) {
+      console.error('退出登录失败:', error)
+      // 即使API调用失败，也尝试清除前端会话
+      await signOut({
+        callbackUrl: '/auth/signin',
+        redirect: true
+      })
+    }
+  }
 
   return (
     <SidebarMenu>
@@ -84,23 +112,35 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <UserCircleIcon />
-                Account
+              <DropdownMenuItem 
+                onClick={() => setTheme("light")}
+                className={theme === "light" ? "bg-accent" : ""}
+              >
+                <SunIcon />
+                浅色主题
+                {theme === "light" && <span className="ml-auto">✓</span>}
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCardIcon />
-                Billing
+              <DropdownMenuItem 
+                onClick={() => setTheme("dark")}
+                className={theme === "dark" ? "bg-accent" : ""}
+              >
+                <MoonIcon />
+                暗色主题
+                {theme === "dark" && <span className="ml-auto">✓</span>}
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <BellIcon />
-                Notifications
+              <DropdownMenuItem 
+                onClick={() => setTheme("system")}
+                className={theme === "system" ? "bg-accent" : ""}
+              >
+                <MonitorIcon />
+                跟随系统
+                {theme === "system" && <span className="ml-auto">✓</span>}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOutIcon />
-              Log out
+              退出登录
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
