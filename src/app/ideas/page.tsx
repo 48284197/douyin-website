@@ -5,6 +5,7 @@ import Link from 'next/link';
 import dynamicImport from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { Loading } from '@/components/ui/loading';
+import { NavigationWithAuth } from '@/components/layout/navigation-with-auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,8 +20,10 @@ const IdeaSubmissionForm = dynamicImport(
 
 export default function IdeasPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50">
+      <NavigationWithAuth />
+      <div className="py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-lg shadow-sm p-8">
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
@@ -46,6 +49,7 @@ export default function IdeasPage() {
             <IdeaSubmissionForm />
           </Suspense>
         </div>
+      </div>
       </div>
     </div>
   );

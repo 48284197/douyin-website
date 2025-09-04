@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Navigation } from '@/components/layout/navigation';
+import { NavigationWithAuth } from '@/components/layout/navigation-with-auth';
 import { DownloadSection } from '@/components/download/download-section';
 import { InstallationGuide } from '@/components/download/installation-guide';
 
@@ -12,7 +12,7 @@ export default function DownloadPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* 导航栏 */}
-      <Navigation />
+      <NavigationWithAuth />
       
       {/* 主要内容 */}
       <main className="pt-16">

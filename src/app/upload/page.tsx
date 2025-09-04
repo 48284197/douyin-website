@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import FileUpload from '@/components/upload/FileUpload';
 import { useS3Upload } from '@/hooks/useS3Upload';
+import { NavigationWithAuth } from '@/components/layout/navigation-with-auth';
 
 interface FileInfo {
   fileName: string;
@@ -136,8 +137,10 @@ const UploadPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gray-50">
+      <NavigationWithAuth />
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">文件上传管理</h1>
         
         {/* 上传区域 */}
@@ -315,6 +318,7 @@ const UploadPage: React.FC = () => {
             </>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

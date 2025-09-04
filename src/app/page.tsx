@@ -1,4 +1,4 @@
-import { Navigation } from '@/components/layout/navigation';
+import { NavigationWithAuth } from '@/components/layout/navigation-with-auth';
 import { HeroSection } from '@/components/home/hero-section';
 import { FeaturesSection } from '@/components/home/features-section';
 import { ScreenshotCarousel } from '@/components/home/screenshot-carousel';
@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* 导航栏 */}
-      <Navigation />
+      <NavigationWithAuth />
       
       {/* 主要内容 */}
       <main>
