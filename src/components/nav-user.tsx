@@ -114,27 +114,45 @@ export function NavUser({
             <DropdownMenuGroup>
               <DropdownMenuItem 
                 onClick={() => setTheme("light")}
-                className={theme === "light" ? "bg-accent" : ""}
+                className={`cursor-pointer transition-colors ${
+                  theme === "light" 
+                    ? "bg-accent text-accent-foreground font-medium" 
+                    : "hover:bg-accent/50"
+                }`}
               >
-                <SunIcon />
+                <SunIcon className="h-4 w-4" />
                 浅色主题
-                {theme === "light" && <span className="ml-auto">✓</span>}
+                {theme === "light" && (
+                  <span className="ml-auto text-primary font-bold">✓</span>
+                )}
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => setTheme("dark")}
-                className={theme === "dark" ? "bg-accent" : ""}
+                className={`cursor-pointer transition-colors ${
+                  theme === "dark" 
+                    ? "bg-accent text-accent-foreground font-medium" 
+                    : "hover:bg-accent/50"
+                }`}
               >
-                <MoonIcon />
+                <MoonIcon className="h-4 w-4" />
                 暗色主题
-                {theme === "dark" && <span className="ml-auto">✓</span>}
+                {theme === "dark" && (
+                  <span className="ml-auto text-primary font-bold">✓</span>
+                )}
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => setTheme("system")}
-                className={theme === "system" ? "bg-accent" : ""}
+                className={`cursor-pointer transition-colors ${
+                  theme === "system" 
+                    ? "bg-accent text-accent-foreground font-medium" 
+                    : "hover:bg-accent/50"
+                }`}
               >
-                <MonitorIcon />
+                <MonitorIcon className="h-4 w-4" />
                 跟随系统
-                {theme === "system" && <span className="ml-auto">✓</span>}
+                {theme === "system" && (
+                  <span className="ml-auto text-primary font-bold">✓</span>
+                )}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

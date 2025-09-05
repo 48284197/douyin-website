@@ -56,13 +56,29 @@ export function ThemeProvider({
     root.classList.add(theme)
   }, [theme])
 
+  // 监听系统主题变化
+  useEffect(() => {
+    if (theme !== "system") return
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+    const handleChange = () => {
+      const root = window.document.documentElement
+      root.classList.remove("light", "dark")
+      const systemTheme = mediaQuery.matches ? "dark" : "light"
+      root.classList.add(systemTheme)
+    }
+
+    mediaQuery.addEventListener("change", handleChange)
+    return () => mediaQuery.removeEventListener("change", handleChange)
+  }, [theme])
+
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
+    setTheme: (newTheme: Theme) => {
       if (typeof window !== "undefined") {
-        localStorage.setItem(storageKey, theme)
+        localStorage.setItem(storageKey, newTheme)
       }
-      setTheme(theme)
+      setTheme(newTheme)
     },
   }
 
