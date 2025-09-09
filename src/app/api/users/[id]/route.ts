@@ -4,10 +4,11 @@ import { prisma } from '@/lib/db'
 // 获取单个用户信息
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = parseInt(params.id)
+    const resolvedParams = await params
+    const userId = parseInt(resolvedParams.id)
     
     if (isNaN(userId)) {
       return NextResponse.json(
@@ -66,10 +67,11 @@ export async function GET(
 // 更新用户信息
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = parseInt(params.id)
+    const resolvedParams = await params
+    const userId = parseInt(resolvedParams.id)
     const body = await request.json()
     
     if (isNaN(userId)) {
@@ -141,10 +143,11 @@ export async function PUT(
 // 删除用户
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = parseInt(params.id)
+    const resolvedParams = await params
+    const userId = parseInt(resolvedParams.id)
     
     if (isNaN(userId)) {
       return NextResponse.json(
